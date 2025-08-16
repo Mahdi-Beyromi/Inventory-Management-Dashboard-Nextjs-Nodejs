@@ -66,7 +66,7 @@ const Navbar = () => {
           </div>
           <hr className="w-0 h-7 border border-solid border-l border-gray-300 mx-3" />
           <div className="flex items-center gap-3 cursor-pointer">
-            <span className="font-semibold">Ed Roh</span>
+            <span className="font-semibold">mahdi</span>
           </div>
         </div>
         <Link href="/settings">
