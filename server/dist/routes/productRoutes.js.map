@@ -1,1 +1,1 @@
-{"version":3,"file":"productRoutes.js","sourceRoot":"","sources":["../../src/routes/productRoutes.ts"],"names":[],"mappings":""}
+{"version":3,"file":"productRoutes.js","sourceRoot":"","sources":["../../src/routes/productRoutes.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,MAAM,EAAE,MAAM,SAAS,CAAC;AACjC,OAAO,EAAE,aAAa,EAAE,WAAW,EAAE,MAAM,qCAAqC,CAAC;AAEjF,MAAM,MAAM,GAAG,MAAM,EAAE,CAAC;AAExB,MAAM,CAAC,GAAG,CAAC,GAAG,EAAE,WAAW,CAAC,CAAC;AAC7B,MAAM,CAAC,IAAI,CAAC,GAAG,EAAE,aAAa,CAAC,CAAC;AAEhC,eAAe,MAAM,CAAC"}
