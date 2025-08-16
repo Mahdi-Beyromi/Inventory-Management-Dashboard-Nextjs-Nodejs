@@ -16,6 +16,7 @@ import {
   Typography,
   Alert,
   CircularProgress,
+  Chip,
 } from '@mui/material';
 import { useCreateOrderMutation, useGetProductsQuery } from '@/state/api';
 import { formatCurrency } from '@/utils/formatters';
@@ -89,11 +90,13 @@ export default function CreateOrderModal({ open, onClose }: CreateOrderModalProp
 
       <form onSubmit={handleSubmit}>
         <DialogContent className="space-y-4">
-          {error && (
-            <Alert severity="error" className="mb-4">
-              {error.data?.message || 'Failed to create order. Please try again.'}
-            </Alert>
-          )}
+                     {error && (
+             <Alert severity="error" className="mb-4">
+               {'data' in error && error.data?.message 
+                 ? error.data.message 
+                 : 'Failed to create order. Please try again.'}
+             </Alert>
+           )}
 
           <FormControl fullWidth required>
             <InputLabel>Select Product</InputLabel>
@@ -140,33 +143,41 @@ export default function CreateOrderModal({ open, onClose }: CreateOrderModalProp
             }
           />
 
-          {selectedProduct && (
-            <Box className="bg-gray-50 p-4 rounded-lg">
-              <Typography variant="subtitle2" className="text-gray-600 mb-2">
-                Order Summary
-              </Typography>
-              <Box className="space-y-2">
-                <Box className="flex justify-between">
-                  <Typography>Product:</Typography>
-                  <Typography className="font-medium">{selectedProduct.name}</Typography>
-                </Box>
-                <Box className="flex justify-between">
-                  <Typography>Unit Price:</Typography>
-                  <Typography>{formatCurrency(selectedProduct.price)}</Typography>
-                </Box>
-                <Box className="flex justify-between">
-                  <Typography>Quantity:</Typography>
-                  <Typography>{quantity}</Typography>
-                </Box>
-                <Box className="flex justify-between border-t pt-2">
-                  <Typography className="font-semibold">Total Price:</Typography>
-                  <Typography className="font-semibold text-lg text-green-600">
-                    {formatCurrency(totalPrice)}
-                  </Typography>
-                </Box>
-              </Box>
-            </Box>
-          )}
+                     {selectedProduct && (
+             <Box className="bg-gray-50 p-4 rounded-lg">
+               <Typography variant="subtitle2" className="text-gray-600 mb-2">
+                 Order Summary
+               </Typography>
+               <Box className="space-y-2">
+                 <Box className="flex justify-between">
+                   <Typography>Product:</Typography>
+                   <Typography className="font-medium">{selectedProduct.name}</Typography>
+                 </Box>
+                 <Box className="flex justify-between">
+                   <Typography>Unit Price:</Typography>
+                   <Typography>{formatCurrency(selectedProduct.price)}</Typography>
+                 </Box>
+                 <Box className="flex justify-between">
+                   <Typography>Quantity:</Typography>
+                   <Typography>{quantity}</Typography>
+                 </Box>
+                 <Box className="flex justify-between">
+                   <Typography>Initial Status:</Typography>
+                   <Chip
+                     label="Pending"
+                     size="small"
+                     className="bg-yellow-100 text-yellow-800"
+                   />
+                 </Box>
+                 <Box className="flex justify-between border-t pt-2">
+                   <Typography className="font-semibold">Total Price:</Typography>
+                   <Typography className="font-semibold text-lg text-green-600">
+                     {formatCurrency(totalPrice)}
+                   </Typography>
+                 </Box>
+               </Box>
+             </Box>
+           )}
         </DialogContent>
 
         <DialogActions className="p-4 bg-gray-50">

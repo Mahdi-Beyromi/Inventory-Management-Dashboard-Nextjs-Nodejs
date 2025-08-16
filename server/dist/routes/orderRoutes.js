@@ -1,7 +1,8 @@
 import { Router } from "express";
-import { createOrder, getOrders } from "../controllers/orderController.js";
+import { createOrder, getOrders, updateOrderStatus } from "../controllers/orderController.js";
 const router = Router();
 router.get("/", getOrders);
 router.post("/", createOrder);
+router.put("/:orderId/status", updateOrderStatus);
 export default router;
 //# sourceMappingURL=orderRoutes.js.map

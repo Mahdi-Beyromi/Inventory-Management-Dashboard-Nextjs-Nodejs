@@ -22,12 +22,32 @@ export interface Order {
   productId: string;
   quantity: number;
   totalPrice: number;
+  status: string;
   createdAt: string;
   product: {
     name: string;
     price: number;
     category: string;
   };
+}
+
+export interface OrdersResponse {
+  orders: Order[];
+  pagination: {
+    currentPage: number;
+    totalPages: number;
+    totalCount: number;
+    hasNextPage: boolean;
+    hasPrevPage: boolean;
+    limit: number;
+  };
+}
+
+export interface OrdersQueryParams {
+  search?: string;
+  status?: string;
+  page?: number;
+  limit?: number;
 }
 
 export interface NewOrder {
@@ -69,8 +89,17 @@ export const api = createApi({
       }),
       invalidatesTags: ["Products"],
     }),
-    getOrders: build.query<Order[], void>({
-      query: () => "/orders",
+    getOrders: build.query<OrdersResponse, OrdersQueryParams>({
+      query: (params) => {
+        const searchParams = new URLSearchParams();
+        if (params.search) searchParams.append('search', params.search);
+        if (params.status) searchParams.append('status', params.status);
+        if (params.page) searchParams.append('page', params.page.toString());
+        if (params.limit) searchParams.append('limit', params.limit.toString());
+        
+        const queryString = searchParams.toString();
+        return `/orders${queryString ? `?${queryString}` : ''}`;
+      },
       providesTags: ["Orders"],
     }),
     createOrder: build.mutation<Order, NewOrder>({
@@ -80,6 +109,14 @@ export const api = createApi({
         body: newOrder,
       }),
       invalidatesTags: ["Orders", "Products"],
+    }),
+    updateOrderStatus: build.mutation<Order, { orderId: string; status: string }>({
+      query: ({ orderId, status }) => ({
+        url: `/orders/${orderId}/status`,
+        method: "PUT",
+        body: { status },
+      }),
+      invalidatesTags: ["Orders"],
     }),
     getUsers: build.query<User[], void>({
       query: () => "/users",
@@ -94,5 +131,6 @@ export const {
   useCreateProductMutation,
   useGetOrdersQuery,
   useCreateOrderMutation,
+  useUpdateOrderStatusMutation,
   useGetUsersQuery,
 } = api;

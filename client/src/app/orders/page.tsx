@@ -1,9 +1,10 @@
 'use client';
 
 import { useState } from 'react';
-import { Box, Typography, Button, Paper } from '@mui/material';
+import { Box, Button } from '@mui/material';
 import { Plus } from 'lucide-react';
-import OrderListTable from './OrderListTable';
+import Header from '@/app/{components}/Header';
+import OrderListGrid from './OrderListGrid';
 import CreateOrderModal from './CreateOrderModal';
 
 export default function OrdersPage() {
@@ -13,11 +14,9 @@ export default function OrdersPage() {
   const handleCloseCreateModal = () => setIsCreateModalOpen(false);
 
   return (
-    <Box className="p-6">
-      <Box className="flex justify-between items-center mb-6">
-        <Typography variant="h4" className="font-bold text-gray-800">
-          Orders Management
-        </Typography>
+    <div className="flex flex-col">
+      <div className="flex justify-between items-center mb-6">
+        <Header name="Orders Management" />
         <Button
           variant="contained"
           startIcon={<Plus size={20} />}
@@ -26,16 +25,14 @@ export default function OrdersPage() {
         >
           Create Order
         </Button>
-      </Box>
+      </div>
 
-      <Paper className="p-6">
-        <OrderListTable />
-      </Paper>
+      <OrderListGrid />
 
       <CreateOrderModal
         open={isCreateModalOpen}
         onClose={handleCloseCreateModal}
       />
-    </Box>
+    </div>
   );
 }

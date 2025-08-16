@@ -39,6 +39,7 @@ model Order {
   productId   String
   quantity    Int
   totalPrice  Float
+  status      String   @default("pending")
   createdAt   DateTime @default(now())
   product     Products @relation(fields: [productId], references: [productId])
 }
