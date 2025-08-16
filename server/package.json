@@ -1,13 +1,14 @@
 {
   "name": "server",
   "version": "1.0.0",
+  "type": "module",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "seed": "node prisma/seed.mjs",
     "build": "rimraf dist && npx tsc",
     "start": "npm run build && node dist/index.js",
-    "dev": "concurrently \"npx tsc -w\" \"nodemon --exec ts-node src/index.ts\""
+    "dev": "concurrently \"npx tsc -w\" \"nodemon dist/index.js\""
   },
   "keywords": [],
   "author": "",
