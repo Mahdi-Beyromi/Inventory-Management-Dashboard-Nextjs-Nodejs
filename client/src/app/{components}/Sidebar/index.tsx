@@ -11,6 +11,7 @@ import {
   Menu,
   SlidersHorizontal,
   User,
+  ShoppingCart,
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -122,6 +123,12 @@ const Sidebar = () => {
           href="/products"
           icon={Clipboard}
           label="Products"
+          isCollapsed={isSidebarCollapsed}
+        />
+        <SidebarLink
+          href="/orders"
+          icon={ShoppingCart}
+          label="Orders"
           isCollapsed={isSidebarCollapsed}
         />
         <SidebarLink
