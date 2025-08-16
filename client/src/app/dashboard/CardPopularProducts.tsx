@@ -39,6 +39,9 @@ const CardPopularProducts = () => {
                       <span className="mx-2">|</span>
                       <Rating rating={product.rating || 0} />
                     </div>
+                    <div className="text-xs text-gray-500 mt-1">
+                      {product.category}
+                    </div>
                   </div>
                 </div>
 

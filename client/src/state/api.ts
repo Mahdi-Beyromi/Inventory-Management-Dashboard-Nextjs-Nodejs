@@ -6,6 +6,7 @@ export interface Product {
   price: number;
   rating?: number;
   stockQuantity: number;
+  category: string;
 }
 
 export interface NewProduct {
@@ -13,6 +14,7 @@ export interface NewProduct {
   price: number;
   rating?: number;
   stockQuantity: number;
+  category: string;
 }
 
 

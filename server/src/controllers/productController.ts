@@ -9,12 +9,23 @@ export const getProducts = async (
 ): Promise<void> => {
   try {
     const search = req.query.search?.toString();
+    const category = req.query.category?.toString();
+    
+    const whereClause: any = {};
+    
+    if (search) {
+      whereClause.OR = [
+        { name: { contains: search } },
+        { category: { contains: search } }
+      ];
+    }
+    
+    if (category) {
+      whereClause.category = category;
+    }
+    
     const products = await prisma.products.findMany({
-      where: {
-        name: {
-          contains: search,
-        },
-      },
+      where: whereClause,
     });
     res.json(products);
   } catch (error) {
@@ -27,7 +38,7 @@ export const createProduct = async (
   res: Response
 ): Promise<void> => {
   try {
-    const { productId, name, price, rating, stockQuantity } = req.body;
+    const { productId, name, price, rating, stockQuantity, category } = req.body;
     const product = await prisma.products.create({
       data: {
         productId,
@@ -35,6 +46,7 @@ export const createProduct = async (
         price,
         rating,
         stockQuantity,
+        category,
       },
     });
     res.status(201).json(product);

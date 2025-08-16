@@ -28,6 +28,7 @@ model Products {
   price         Float
   rating        Float?
   stockQuantity Int
+  category      String
   createdAt     DateTime    @default(now())
   updatedAt     DateTime    @updatedAt
 }
