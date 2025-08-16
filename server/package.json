@@ -10,7 +10,10 @@
     "start": "npm run build && node dist/index.js",
     "dev": "concurrently \"npx tsc -w\" \"nodemon dist/index.js\"",
     "migrate:orders": "node prisma/migrate-orders.mjs",
-    "migrate:order-status": "node prisma/migrate-order-status.mjs"
+    "migrate:order-status": "node prisma/migrate-order-status.mjs",
+    "sample:orders": "node prisma/sample-orders.mjs",
+    "sample:data": "node prisma/sample-data.mjs",
+    "prisma:generate": "npx prisma generate"
   },
   "keywords": [],
   "author": "",

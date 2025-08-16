@@ -56,7 +56,24 @@ export interface NewOrder {
 }
 
 export interface DashboardMetrics {
+  totalProducts: number;
+  totalOrders: number;
+  totalRevenue: number;
   popularProducts: Product[];
+}
+
+export interface SalesReport {
+  totalOrders: number;
+  totalRevenue: number;
+  dailySales: { date: string; totalAmount: number }[];
+}
+
+export interface LowInventoryItem {
+  productId: string;
+  name: string;
+  stockQuantity: number;
+  category: string;
+  price: number;
 }
 
 export interface User {
@@ -68,11 +85,19 @@ export interface User {
 export const api = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: process.env.NEXT_PUBLIC_API_BASE_URL }),
   reducerPath: "api",
-  tagTypes: ["DashboardMetrics", "Products", "Users", "Expenses", "Orders"],
+  tagTypes: ["DashboardMetrics", "Products", "Users", "Expenses", "Orders", "SalesReport", "LowInventoryReport"],
   endpoints: (build) => ({
     getDashboardMetrics: build.query<DashboardMetrics, void>({
       query: () => "/dashboard",
       providesTags: ["DashboardMetrics"],
+    }),
+    getSalesReport: build.query<SalesReport, void>({
+      query: () => "/dashboard/sales-report",
+      providesTags: ["SalesReport"],
+    }),
+    getLowInventoryReport: build.query<LowInventoryItem[], void>({
+      query: () => "/dashboard/low-inventory",
+      providesTags: ["LowInventoryReport"],
     }),
     getProducts: build.query<Product[], string | void>({
       query: (search) => ({
@@ -127,6 +152,8 @@ export const api = createApi({
 
 export const {
   useGetDashboardMetricsQuery,
+  useGetSalesReportQuery,
+  useGetLowInventoryReportQuery,
   useGetProductsQuery,
   useCreateProductMutation,
   useGetOrdersQuery,
