@@ -65,13 +65,20 @@ const Sidebar = () => {
     (state) => state.global.isSidebarCollapsed
   );
 
+  // Ensure sidebar is open by default on component mount
+  React.useEffect(() => {
+    if (isSidebarCollapsed) {
+      dispatch(setIsSidebarCollapsed(false));
+    }
+  }, []);
+
   const toggleSidebar = () => {
     dispatch(setIsSidebarCollapsed(!isSidebarCollapsed));
   };
 
-  const sidebarClassNames = `fixed flex flex-col ${
+  const sidebarClassNames = `fixed left-0 top-0 flex flex-col ${
     isSidebarCollapsed ? "w-0 md:w-16" : "w-72 md:w-64"
-  } bg-white transition-all duration-300 overflow-hidden h-full shadow-md z-40`;
+  } bg-white transition-all duration-300 ease-in-out overflow-hidden h-full shadow-md z-40`;
 
   return (
     <div className={sidebarClassNames}>
@@ -90,7 +97,7 @@ const Sidebar = () => {
         </h1>
 
         <button
-          className="px-3 py-3 bg-gray-100 rounded-full hover:bg-blue-100"
+          className="md:hidden px-3 py-3 bg-gray-100 rounded-full hover:bg-blue-100"
           onClick={toggleSidebar}
         >
           <Menu className="w-4 h-4" />
